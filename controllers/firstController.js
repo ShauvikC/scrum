@@ -1,20 +1,23 @@
 /**
- * 
- *  
- * Created by shauvik chakroborty 
+ *
+ *
+ * Created by shauvik chakroborty
  * LIcensed : ISC
  */
 
 //CRUD operations
 
-
 /**
- * 
- *GET request for fetching data without **args** 
- * 
+ *
+ *GET request for fetching data without **args**
+ *
  */
+import { application } from "express";
+import { First } from "../models/firstControllerModel.js";
+
 const getData = async (req, res) => {
-  res.status(200).json({ data: "hello form get controller!!!" });
+  const result = await First.findById(req.params.id);
+  res.status(200).json({ data: result });
 };
 
 /**
@@ -22,15 +25,52 @@ const getData = async (req, res) => {
  */
 
 //POST Request
-// create this controller yourself
 const setData = async (req, res) => {
+  try {
+    const payload = req.body;
 
-    //await with database request => will be done next day
-    res.status(200).json({ data: "hello form get controller!!!" });
-  };
+    const result = new First(payload);
+    if (await result.save()) {
+      res.status(200).json({ data: `User created succesfully` });
+    }
+  } catch (e) {
+    res.status(500).json({ data: `Age` });
+  }
+};
+
+
+{/* <button onClick={handles}></button>
+import basePath from 'basepath.js'
+const set =(id)=>{
+  return await axios.get(`${basePath}/${id}`)
+}
+
+const handles=()=>{
+  const someres=await set(`(new URLparams(window.location.search)).get("id")`) //{ data: `Age` }
+
+}
+
+if(someresult.data === "Age"){
+  cogoToast.error("Please Provide age > 100")
+} */}
+
+// PUT Request
+
+const putData = async (req, res) => {
+  res.status(200).json({ data: "Hello from put controller!!!" });
+};
+
+// delete Request
+
+const deleteData = async (req, res) => {
+  res.status(200).json({ data: "Hello from delete controller!!!" });
+};
 
 const firstController = {
   getData,
+  setData,
+  putData,
+  deleteData,
 };
 
 export default firstController;

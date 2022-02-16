@@ -1,10 +1,11 @@
 import express from "express";
 import "dotenv/config";
+import { connectDB } from "./config/db.js";
 import firstControllerRoutes from "./routes/firstControllerRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
-
+connectDB()
 
 //for next day
 
