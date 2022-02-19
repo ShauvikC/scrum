@@ -12,7 +12,7 @@
  *GET request for fetching data without **args**
  *
  */
-import { application } from "express";
+
 import { First } from "../models/firstControllerModel.js";
 
 const getData = async (req, res) => {
@@ -25,14 +25,22 @@ const getData = async (req, res) => {
  */
 
 //POST Request
+
+
 const setData = async (req, res) => {
   try {
     const payload = req.body;
+    console.log(req.body);
+    // const result = new First(payload);
+    // if (await result.save()) {
+    //   res.status(200).json({ data: `User created succesfully` });
+    // }
 
-    const result = new First(payload);
-    if (await result.save()) {
-      res.status(200).json({ data: `User created succesfully` });
-    }
+    res.status(200).json({result:"hello"})
+
+    /**
+     * Change the schema
+     */
   } catch (e) {
     res.status(500).json({ data: `Age` });
   }
@@ -57,7 +65,18 @@ if(someresult.data === "Age"){
 // PUT Request
 
 const putData = async (req, res) => {
-  res.status(200).json({ data: "Hello from put controller!!!" });
+  try{
+    const result = await First.updateOne(req.params.id,
+      {
+        $set:{
+            contact : "8240154659"
+        }
+      });
+      res.status(200).json({data:`data updated`})
+  }catch(err){
+    res.status(500).json({error_in :err});
+  }
+
 };
 
 // delete Request
@@ -74,3 +93,4 @@ const firstController = {
 };
 
 export default firstController;
+

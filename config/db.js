@@ -1,4 +1,4 @@
-//create schema (import mongoose)
+
 import Mongoose from 'mongoose';
 import "dotenv/config" ;
 
